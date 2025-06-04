@@ -326,5 +326,18 @@ class TaskCLI:
         
         elif args.command == 'interactive':
             self.add_task_interactive()
+def main():
+    """Main entry point"""
+    try:
+        cli = TaskCLI()
+        cli.run()
+    except KeyboardInterrupt:
+        print("\nGoodbye!")
+        sys.exit(0)
+    except Exception as e:
+        print(f"An error occurred: {e}")
+        sys.exit(1)
 
+if _name_ == "_main_":
+    main()
 
