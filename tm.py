@@ -299,3 +299,45 @@ class TaskCLI:
         
         task_id = self.manager.add_task(title, description, category, priority, due_date)
         print(f"Task created with ID: {task_id}")
+         elif args.command == 'list':
+            self.list_tasks(args.status, args.category)
+        
+        elif args.command == 'complete':
+            if self.manager.complete_task(args.id):
+                print(f"Task {args.id} marked as completed")
+            else:
+                print(f"Task {args.id} not found")
+        
+        elif args.command == 'delete':
+            if self.manager.delete_task(args.id):
+                print(f"Task {args.id} deleted")
+            else:
+                print(f"Task {args.id} not found")
+                elif args.command == 'search':
+            tasks = self.manager.search_tasks(args.query)
+            if tasks:
+                for task in tasks:
+                    print(self.format_task(task))
+            else:
+                print("No tasks found matching your query")
+        
+        elif args.command == 'stats':
+            self.show_statistics()
+        
+        elif args.command == 'interactive':
+            self.add_task_interactive()
+def main():
+    """Main entry point"""
+    try:
+        cli = TaskCLI()
+        cli.run()
+    except KeyboardInterrupt:
+        print("\nGoodbye!")
+        sys.exit(0)
+    except Exception as e:
+        print(f"An error occurred: {e}")
+        sys.exit(1)
+
+if _name_ == "_main_":
+    main()
+
